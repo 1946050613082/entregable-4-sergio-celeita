@@ -1,0 +1,84 @@
+
+
+
+Desarrollar una API funcional con Next.js conectada a MongoDB Atlas mediante Mongoose, para realizar operaciones CRUD sobre un modelo de usuario. Esta API permite crear, leer, actualizar y eliminar usuarios, siguiendo buenas prácticas de organización, seguridad y validación de datos.
+
+⚙️ Tecnologías Utilizadas
+
+Herramienta	Función Principal
+Next.js	Framework React con soporte para rutas API
+TypeScript	Tipado estático para mayor robustez en el desarrollo
+MongoDB Atlas	Base de datos NoSQL en la nube
+Mongoose	ODM para modelar y validar datos en MongoDB
+Postman	Cliente para probar y documentar la API
+dotenv	Manejo seguro de variables de entorno
+
+
+📐 Estructura del Proyecto
+
+/lib/dbConnect.ts        → Conexión centralizada a MongoDB con caché  
+/models/Usuario.ts       → Esquema del modelo de usuario en Mongoose  
+/pages/api/usuarios/     → Rutas API: index.ts (GET, POST), [id].ts (PUT, DELETE)  
+.env.local               → Variables de entorno (URI de conexión segura) 
+
+
+🧠 Algoritmo de Funcionamiento General
+🔗 Conexión a MongoDB
+Se establece desde lib/dbConnect.ts usando Mongoose.
+
+Se implementa caché para evitar múltiples conexiones durante el desarrollo con Next.js.
+
+📄 Modelo de Usuario (models/Usuario.ts)
+Define la estructura del documento de usuario con validaciones automáticas:
+
+
+{
+  nombre: string;
+  correo: string; // único y validado como email
+  edad: number;   // > 0
+  roles: string[]; // Ej: ['admin', 'user']
+}
+
+
+🚨 Manejo de Errores
+Se usa try/catch en todas las rutas.
+
+Se valida que error sea instancia de Error antes de acceder a .message.
+
+
+🧪 Pruebas Realizadas con Postman
+Se realizaron operaciones CRUD exitosas con capturas en Postman:
+
+✅ Creación de al menos 3 usuarios
+
+✅ Consulta general (GET)
+
+✅ Actualización de un usuario (PUT)
+
+✅ Eliminación de un usuario (DELETE)
+
+Todas las respuestas HTTP fueron validadas: 200, 201, 400, 404, 500.
+
+
+🔐 Seguridad y Protocolos
+Protocolo de Conexión:
+Se usa mongodb+srv (conexión segura) provista por MongoDB Atlas.
+
+Acceso por IP:
+Solo las IPs autorizadas en Network Access pueden conectarse a la base de datos.
+
+Variables de Entorno:
+La URI de conexión está protegida dentro del archivo .env.local, lo que garantiza seguridad y confidencialidad.
+
+
+✅ Estado Actual del Proyecto
+✔️ Modelo y validaciones en Mongoose
+✔️ CRUD completo funcional
+✔️ Conexión segura a base de datos en la nube
+✔️ Proyecto escalable y modular
+✔️ Pruebas exitosas con Postman
+
+
+
+
+
